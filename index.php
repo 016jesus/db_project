@@ -7,6 +7,7 @@
 <body class="bg-gray-100">
     <div class="container mx-auto">
         <!-- Header -->
+        <?php include_once "atributtes.php"; ?>
         <div class="bg-white shadow-md p-4 flex justify-between items-center">
             <div class="flex items-center">
                 <img src="https://storage.googleapis.com/a1aa/image/03Ph9VGQxAJLL9qlIisHpXrCyvd0UhpwFlyULnndHlYM207E.jpg" alt="SNIES Logo" class="mr-4" width="100" height="50">
@@ -52,11 +53,11 @@
                                 </label>
                                 <label class="inline-flex items-center ml-4">
                                     <input type="radio" class="form-radio" name="estado">
-                                    <span class="ml-2">Activo (367)</span>
+                                    <span class="ml-2">Activo (<?php echo $nactiva;?>)</span>
                                 </label>
                                 <label class="inline-flex items-center ml-4">
                                     <input type="radio" class="form-radio" name="estado">
-                                    <span class="ml-2">Inactivo (22)</span>
+                                    <span class="ml-2">Inactiva (<?php echo $ninactiva;?>)</span>
                                 </label>
                             </div>
                         </div>
@@ -69,11 +70,11 @@
                                 </label>
                                 <label class="inline-flex items-center ml-4">
                                     <input type="radio" class="form-radio" name="sede">
-                                    <span class="ml-2">Principal (372)</span>
+                                    <span class="ml-2">Principal (<?php echo $nno_seccional ?>)</span>
                                 </label>
                                 <label class="inline-flex items-center ml-4">
                                     <input type="radio" class="form-radio" name="sede">
-                                    <span class="ml-2">Seccional (62)</span>
+                                    <span class="ml-2">Seccional (<?php echo $nseccional ?>)</span>
                                 </label>
                             </div>
                         </div>
@@ -111,11 +112,11 @@
                                 </label>
                                 <label class="inline-flex items-center ml-4">
                                     <input type="radio" class="form-radio" name="sector">
-                                    <span class="ml-2">Pública (122)</span>
+                                    <span class="ml-2">Pública (<?php echo $npublic?>)</span>
                                 </label>
                                 <label class="inline-flex items-center ml-4">
                                     <input type="radio" class="form-radio" name="sector">
-                                    <span class="ml-2">Privada (267)</span>
+                                    <span class="ml-2">Privada (<?php echo $npriv?>)</span>
                                 </label>
                             </div>
                         </div>
@@ -160,7 +161,7 @@
                             </thead>
                             <tbody>
                                 <?php
-                                include_once 'connect.php';
+
                                 if ($conn == null){
                                     echo "something's broken <br>";
                                 }
