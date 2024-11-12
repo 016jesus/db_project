@@ -1,7 +1,7 @@
 
 <?php
 
-include "connect.php";
+include_once "connect.php";
 
 
 
@@ -33,6 +33,6 @@ $ninactiva = countPerBool('inst_por_mun', 'activa', false, $conn);
 $nseccional = countPerBool('inst_por_mun', 'seccional', true, $conn);
 $nno_seccional = countPerBool('inst_por_mun', 'seccional', false, $conn);
 
-echo $nseccional;
+//echo $nseccional;
 
 // echo $npublic;
