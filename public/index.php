@@ -30,6 +30,8 @@ session_start();
 
             <div class="flex mt-4">
                 <!-- seccion de filtros -->
+
+
                 <?php  include_once "filters.php"; ?>
 
                 <!-- seccion de resultados -->
@@ -58,8 +60,13 @@ session_start();
                             
                             $continue = $_SESSION['continue'];
                             if($continue == true){
+                                if($_SESSION['salida'] == ""){
+                                    echo "<tr><td>No se encontraron resultados </td></tr>";
+                                }else{
                                 echo $_SESSION['salida'];
-                            } else if($continue == null){
+                            }
+                        } 
+                            else{
                                 //mostrar salida por defecto
 
                                 $query = "SELECT * FROM inst_por_mun i 
@@ -71,7 +78,7 @@ session_start();
                                     $row = $result->fetch(PDO:: FETCH_ASSOC);
                                     echo "<tr>"
                                     . "<td class='py-2 px-4 border-b'>{$i}</td>"
-                                    ."<td class='py-2 px-4 border-b'><a href='#' class='text-blue-500'>{$row['nomb_inst']}</a></td>"
+                                    ."<td class='py-2 px-4 border-b'><a href=" ."'https://". $row['pagina_web'] ."'". "class='text-blue-500' target = '_blank'>{$row['nomb_inst']}</a></td>"
                                     . "<td class='py-2 px-4 border-b'>{$row['cod_inst']}</td>"
                                     . "<td class='py-2 px-4 border-b'>{$row['cod_ies_padre']}</td>"
                                     ."<td class='py-2 px-4 border-b'>{$row['activa']}</td>"

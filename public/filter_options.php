@@ -1,6 +1,27 @@
 <!-- archivo de las opciones de los filtros -->
+
+
+
+
 <form id="filterForm" method="POST" action="results.php">
+
+
+
+<h3 class="text-lg font-bold mb-4">Seleccione los filtros para la búsqueda</h3>
     <div class="mb-4">
+        <label class="block text-gray-700">Nombre de la Institución</label>
+        <input type="text" name = "nombre_inst" class="w-full border border-gray-300 p-2 rounded">
+    </div>
+    <div class="mb-4">
+        <label class="block text-gray-700">Código de la Institución</label>
+        <input type="text" name ="codigo_inst" class="w-full border border-gray-300 p-2 rounded">
+    </div>
+
+
+
+
+
+<div class="mb-4">
         <h4 class="font-bold">Tipo de institución</h4>
         <div class="mt-2">
             <label class="block text-gray-700">Estado de la Institución</label>
