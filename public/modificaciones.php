@@ -45,7 +45,7 @@
                     <img src="../media/directivos.png" alt="Directivos" class="w-20 h-20 mb-2">
                     <span class="text-lg font-semibold">Directivos</span>
                 </a>
-                <a href="instituciones_municipio.php" class="bg-green-200 flex flex-col items-center p-6 rounded-lg shadow transform transition-all duration-200 hover:scale-105 hover:bg-green-300">
+                <a href="inst_por_mun.php" class="bg-green-200 flex flex-col items-center p-6 rounded-lg shadow transform transition-all duration-200 hover:scale-105 hover:bg-green-300">
                     <img src="../media/colombia.png" alt="Instituciones por Municipio" class="w-20 h-20 mb-2">
                     <span class="text-lg font-semibold">Instituciones por Municipio</span>
                 </a>
