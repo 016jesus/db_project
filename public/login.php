@@ -1,7 +1,8 @@
 <?php 
-// Incluye la configuración de la base de datos y la conexión
-include_once "../atributtes.php"; 
-session_start();
+    // Incluye la configuración de la base de datos y la conexión
+    include_once "../atributtes.php"; 
+    session_start();
+    $login = isset($_SESSION['mensaje_exito']);
 ?>
 
 <!DOCTYPE html>
@@ -18,7 +19,9 @@ session_start();
         <div class="bg-gray-800 text-white p-4">
             <h2 class="text-2xl">Inicio de Sesión</h2>
         </div>
-
+        <?php
+            if($login) echo "<p>".$_SESSION['mensaje_exito']."</p>"
+        ?>
         <div class="mt-4">
             <form action="procesar_login.php" method="POST" class="bg-white p-6 rounded shadow-md">
                 <div class="mb-4">

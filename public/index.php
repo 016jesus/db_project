@@ -11,7 +11,8 @@
         <?php 
         session_start();
         include_once "header.php";
-        include_once "../atributtes.php"; ?>
+        include_once "../atributtes.php"; 
+        ?>
 
         <div class="mt-4">
             <div class="flex justify-between items-center p-4 bg-gray-800 text-white">
