@@ -98,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $i++;
     }
     $_SESSION['inicio'] = 1;
-    $_SESSION['fin'] = $limit;
+    $_SESSION['limit'] = $_SESSION['inicio'] + $limit;
     $_SESSION['results'] = $result->rowCount();
     $_SESSION['salida'] = $salida;
     //echo $salida[1];

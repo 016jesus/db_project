@@ -203,15 +203,37 @@
                 <div class="bg-white shadow-md p-4 mt-4 flex justify-between items-center">
                         <span class="text-gray-700"><?php echo "Mostrando " .$_SESSION['inicio']. " a " .$_SESSION['fin']." de ".$_SESSION['results'] ." instituciones coincidentes"; ?></span>
                         <div class="flex space-x-2">
-                            <button class="bg-gray-300 text-gray-700 px-4 py-2 rounded">Anterior</button>
-                            <button class="bg-blue-500 text-white px-4 py-2 rounded">1</button>
-                            <button class="bg-gray-300 text-gray-700 px-4 py-2 rounded">2</button>
-                            <button class="bg-gray-300 text-gray-700 px-4 py-2 rounded">3</button>
-                            <button class="bg-gray-300 text-gray-700 px-4 py-2 rounded">4</button>
-                            <button class="bg-gray-300 text-gray-700 px-4 py-2 rounded">5</button>
-                            <button class="bg-gray-300 text-gray-700 px-4 py-2 rounded">...</button>
-                            <button class="bg-gray-300 text-gray-700 px-4 py-2 rounded">39</button>
-                            <button class="bg-gray-300 text-gray-700 px-4 py-2 rounded">Siguiente</button>
+                            <?php
+                                    $limit = $_SESSION['limit'] ?? 0;
+                                    $results = $_SESSION['results'] ?? 0;
+                                    $current_page = $_GET['page'] ?? 1;
+                                    $pages = ceil($results / $limit);
+                                    $max_buttons = 5; // Número máximo de botones de paginación visibles
+
+                                    $start_page = max(1, $current_page - floor($max_buttons / 2));
+                                    $end_page = min($pages, $start_page + $max_buttons - 1);
+
+                                    if ($end_page - $start_page < $max_buttons - 1) {
+                                        $start_page = max(1, $end_page - $max_buttons + 1);
+                                    }
+                                    ?>
+
+                                    <div class="bg-white shadow-md p-4 mt-4 flex justify-between items-center">
+                                        <span class="text-gray-700"><?php echo "Mostrando " .$_SESSION['inicio']. " a " .$_SESSION['fin']." de ".$_SESSION['results'] ." instituciones coincidentes"; ?></span>
+                                        <div class="flex space-x-2">
+                                            <?php if ($current_page > 1): ?>
+                                                <a href="?page=<?php echo $current_page - 1; ?>" class="bg-gray-300 text-gray-700 px-4 py-2 rounded">Anterior</a>
+                                            <?php endif; ?>
+
+                                            <?php for ($i = $start_page; $i <= $end_page; $i++): ?>
+                                                <a href="?page=<?php echo $i; ?>" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 ml-2 <?php echo $i == $current_page ? 'bg-blue-700' : ''; ?>"><?php echo $i; ?></a>
+                                            <?php endfor; ?>
+
+                                            <?php if ($current_page < $pages): ?>
+                                                <a href="?page=<?php echo $current_page + 1; ?>" class="bg-gray-300 text-gray-700 px-4 py-2 rounded">Siguiente</a>
+                                            <?php endif; ?>
+                                        </div>
+                                    </div>
                         </div>
                     </div>
                     <div class="bg-white shadow-md p-4 mt-4">
