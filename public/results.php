@@ -5,7 +5,7 @@ include_once "../connect.php";
 
 
 session_start();
-
+$_SESSION['continue'] = false;
 $_SESSION['query'] = "SELECT * FROM inst_por_mun i
                             JOIN 
                                 cobertura c ON i.cod_inst = c.cod_inst
@@ -111,6 +111,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submitted']) && $_POST
     header("Location: http://$host$uri/$extra");
     exit;
 }
-else {
-    $_SESSION['continue'] = false;
-}
+

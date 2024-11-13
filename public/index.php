@@ -169,7 +169,7 @@
 
 
 
-                
+
                 <div class="w-3/4 ml-4">
                  
                     <table class="min-w-full bg-white mt-4">
@@ -193,7 +193,7 @@
                             $results = $_SESSION['results'] ?? 0;
                             $continue = $_SESSION['continue'];
 
-                            if($continue && $_SESSION['submitted']){
+                            if($continue){
                                 $salida = $_SESSION['salida'];
                                 if($salida == ""){
                                     echo "<tr><td colspan='6' class='py-2 px-4 border-b text-center'>No se encontraron resultados</td></tr>";
@@ -205,6 +205,7 @@
                                      for($i = $inicio; $i <= $limit; $i++){
                                          echo $salida[$i];
                                      }
+                                     $_SESSION['continue'] = false;
                                 }
                             } else {
                                 $query = $_SESSION['query'];
@@ -214,10 +215,11 @@
 
                                 $results = $result->rowCount();
                                 for($i = $inicio; $i <= $limit; $i++){
+                                    $row = $result->fetch(PDO:: FETCH_ASSOC);
                                     $row['seccional'] = $row['seccional'] == 1 ? 'Seccional' : 'Principal';
                                     $row['activa'] = $row['activa'] == 1 ? 'Activa' : 'Inactiva';
                                     $row['publica'] = $row['publica'] == 1 ? 'Publico' : 'Privado';
-                                    $row = $result->fetch(PDO:: FETCH_ASSOC);
+                                    
                                     echo "<tr>"
                                         . "<td class='py-2 px-4 border-b'>{$i}</td>"
                                         . "<td class='py-2 px-4 border-b'><a href='https://{$row['pagina_web']}' class='text-blue-500' target='_blank'>{$row['nomb_inst']}</a></td>"
