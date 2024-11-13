@@ -17,6 +17,10 @@
             <div class="bg-gray-800 text-white p-4">
                 <h2 class="text-2xl">Consulta de Instituciones</h2>
                 <p>Sistema Nacional de Información para la Educación superior en Colombia</p>
+                <div>
+                    <a href="login.php" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Iniciar Sesión</a>
+                    <a href="registro.php" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 ml-2">Registrar</a>
+                </div>
             </div>
 
             <div class="flex mt-4">
