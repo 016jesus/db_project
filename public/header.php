@@ -6,5 +6,5 @@
             <p class="text-gray-600">Sistema Nacional de Información de la Educación Superior</p>
         </div>
     </div>
-    <img src="../media/min.jpg" alt="inisterio de MEducación Logo" width="200" height="80">
+    <img src="../media/min.jpg" alt="Ministerio de Educación Logo" width="200" height="80">
 </div>

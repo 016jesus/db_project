@@ -73,15 +73,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 
-    if ($limit == "Todos") {
-        $limit == 100;
-    }
+    
 
     echo $query;
     $result = $conn->query($query);
+    $limit = $limit == 'Todos' ? $result->rowCount(): $limit;
     $salida = array();
     $i = 1;
-    while (($row = $result->fetch(PDO::FETCH_ASSOC))) {
+    while (($row = $result->fetch(PDO::FETCH_ASSOC)) && $i <= $limit) {
         $row['seccional'] = $row['seccional'] == 1 ? 'Seccional' : 'Principal';
         $row['activa'] = $row['activa'] == 1 ? 'Activa' : 'Inactiva';
         $row['publica'] = $row['publica'] == 1 ? 'Publico' : 'Privado';
