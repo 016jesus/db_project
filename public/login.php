@@ -3,6 +3,7 @@
     include_once "../atributtes.php"; 
     session_start();
     $login = isset($_SESSION['mensaje_exito']);
+
 ?>
 
 <!DOCTYPE html>
@@ -20,7 +21,11 @@
             <h2 class="text-2xl">Inicio de Sesión</h2>
         </div>
         <?php
-            if($login) echo "<p>".$_SESSION['mensaje_exito']."</p>"
+            session_start();
+            if (isset($_SESSION['mensaje_error'])) {
+                echo "<p class='text-red-500'>" . $_SESSION['mensaje_error'] . "</p>";
+                unset($_SESSION['mensaje_error']); // Eliminar el mensaje después de mostrarlo
+            }
         ?>
         <div class="mt-4">
             <form action="procesar_login.php" method="POST" class="bg-white p-6 rounded shadow-md">

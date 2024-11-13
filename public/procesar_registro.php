@@ -4,8 +4,8 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-// Incluir la conexión a la base de datos
-include_once "../connect.php";  // Asegúrate de que la ruta sea correcta
+//conexión a la base de datos
+include_once "../connect.php"; 
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -15,10 +15,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $nombre_completo = $_POST['username'];
 
     try {
-        // Hashear la contraseña antes de almacenarla
+        // Hashear la contraseña 
         $hashed_password = password_hash($contrasena, PASSWORD_BCRYPT);
 
-        // Preparar la sentencia SQL para insertar el nuevo usuario
+        //sentencia SQL 
         $query = "INSERT INTO privado.usuarios (correo_usuario, contraseña, nombre_completo) 
                   VALUES (:correo_usuario, :contrasena, :nombre_completo)";
         $stmt = $conn->prepare($query);
@@ -30,9 +30,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         // Ejecutar la sentencia
         if ($stmt->execute()) {
-            // Si el registro es exitoso, asignar un mensaje de éxito a la variable de sesión
+          
             $_SESSION['mensaje_exito'] = "Usuario creado con éxito.";
-            header("Location: login.php"); // Redirigir a index.php
+            header("Location: login.php"); 
             exit();
         } else {
             echo "Error al registrar el usuario.";
