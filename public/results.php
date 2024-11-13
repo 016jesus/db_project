@@ -17,12 +17,16 @@ $_SESSION['query'] = "SELECT * FROM inst_por_mun i
                                 instituciones ins ON i.cod_ies_padre = ins.cod_ies_padre
                             JOIN
                                 caracter_academico ca ON ins.cod_acad = ca.cod_acad";                            
-        
-$_SESSION['continue'] = false;
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-    
+
+$_SESSION['salida'] = array();
+
+
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submitted']) && $_POST['submitted'] == 'true') {
+
+
     // variable de control
     $_SESSION['continue'] = true;
 
@@ -75,9 +79,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     
 
-    echo $query;
+    //echo $query;
     $result = $conn->query($query);
+
     $limit = $limit == 'Todos' ? $result->rowCount(): $limit;
+    
     $salida = array();
     $i = 1;
     while (($row = $result->fetch(PDO::FETCH_ASSOC)) && $i <= $limit) {
@@ -98,10 +104,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $i++;
     }
     $_SESSION['inicio'] = 1;
-    $_SESSION['limit'] = $_SESSION['inicio'] + $limit;
+    $_SESSION['limit'] = $limit;
     $_SESSION['results'] = $result->rowCount();
     $_SESSION['salida'] = $salida;
     //echo $salida[1];
     header("Location: http://$host$uri/$extra");
     exit;
+}
+else {
+    $_SESSION['continue'] = false;
 }

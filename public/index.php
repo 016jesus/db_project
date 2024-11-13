@@ -140,12 +140,38 @@
 
 
                     </div>
+                    <input type="hidden" name="submitted" value="true">
                     <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded">Buscar</button>
                 </form>
 
-                <!-- Sección de resultados -->
+
+
+
+
+
+
+
+
+
+
+
+                <!-- ********************************************Sección de resultados************************************************8                                -->
+                
+
+
+
+
+
+
+
+
+
+
+
+
+                
                 <div class="w-3/4 ml-4">
-                    
+                 
                     <table class="min-w-full bg-white mt-4">
                         <thead>
                             <tr>
@@ -162,14 +188,20 @@
                         </thead>
                         <tbody>
                             <?php
+                            $inicio = $_SESSION['inicio'] ?? 1;
+                            $fin = $_SESSION['limit'] ?? 10;
+                            $results = $_SESSION['results'] ?? 0;
                             $continue = $_SESSION['continue'];
-                            if($continue == true){
-                                if($_SESSION['salida'] == ""){
+
+                            if($continue && $_SESSION['submitted']){
+                                $salida = $_SESSION['salida'];
+                                if($salida == ""){
                                     echo "<tr><td colspan='6' class='py-2 px-4 border-b text-center'>No se encontraron resultados</td></tr>";
                                 } else {
-                                    $salida = $_SESSION['salida'];
-                                    $limit = isset($_SESSION['fin']) ? $_SESSION['fin'] : 10;
-                                    $inicio = isset($_SESSION['inicio']) ? $_SESSION['inicio'] : 0;
+                                    $limit = isset($_SESSION['limit']) ? $_SESSION['limit'] : 10;
+                                    $fin = $_SESSION['limit'];
+                                    $results = $_SESSION['results'];
+
                                      for($i = $inicio; $i <= $limit; $i++){
                                          echo $salida[$i];
                                      }
@@ -178,7 +210,10 @@
                                 $query = $_SESSION['query'];
                                 $result = $conn->query($query);
                                 $limit = 10;
-                                for($i = 1; $i <= $limit; $i++){
+                                $fin = $limit;
+
+                                $results = $result->rowCount();
+                                for($i = $inicio; $i <= $limit; $i++){
                                     $row['seccional'] = $row['seccional'] == 1 ? 'Seccional' : 'Principal';
                                     $row['activa'] = $row['activa'] == 1 ? 'Activa' : 'Inactiva';
                                     $row['publica'] = $row['publica'] == 1 ? 'Publico' : 'Privado';
@@ -200,42 +235,21 @@
                             ?>
                         </tbody>
                     </table>
-                <div class="bg-white shadow-md p-4 mt-4 flex justify-between items-center">
-                        <span class="text-gray-700"><?php echo "Mostrando " .$_SESSION['inicio']. " a " .$_SESSION['fin']." de ".$_SESSION['results'] ." instituciones coincidentes"; ?></span>
+                    <div class="bg-white shadow-md p-4 mt-4 flex justify-between items-center">
+                        
                         <div class="flex space-x-2">
                             <?php
-                                    $limit = $_SESSION['limit'] ?? 0;
-                                    $results = $_SESSION['results'] ?? 0;
-                                    $current_page = $_GET['page'] ?? 1;
-                                    $pages = ceil($results / $limit);
-                                    $max_buttons = 5; // Número máximo de botones de paginación visibles
+                                    
 
-                                    $start_page = max(1, $current_page - floor($max_buttons / 2));
-                                    $end_page = min($pages, $start_page + $max_buttons - 1);
-
-                                    if ($end_page - $start_page < $max_buttons - 1) {
-                                        $start_page = max(1, $end_page - $max_buttons + 1);
-                                    }
+                                    
                                     ?>
 
-                                    <div class="bg-white shadow-md p-4 mt-4 flex justify-between items-center">
-                                        <span class="text-gray-700"><?php echo "Mostrando " .$_SESSION['inicio']. " a " .$_SESSION['fin']." de ".$_SESSION['results'] ." instituciones coincidentes"; ?></span>
-                                        <div class="flex space-x-2">
-                                            <?php if ($current_page > 1): ?>
-                                                <a href="?page=<?php echo $current_page - 1; ?>" class="bg-gray-300 text-gray-700 px-4 py-2 rounded">Anterior</a>
-                                            <?php endif; ?>
-
-                                            <?php for ($i = $start_page; $i <= $end_page; $i++): ?>
-                                                <a href="?page=<?php echo $i; ?>" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 ml-2 <?php echo $i == $current_page ? 'bg-blue-700' : ''; ?>"><?php echo $i; ?></a>
-                                            <?php endfor; ?>
-
-                                            <?php if ($current_page < $pages): ?>
-                                                <a href="?page=<?php echo $current_page + 1; ?>" class="bg-gray-300 text-gray-700 px-4 py-2 rounded">Siguiente</a>
-                                            <?php endif; ?>
-                                        </div>
+                                    <div >
+                                        <span class="text-gray-700"><?php echo "Mostrando " . $inicio . " a " .$fin." de ".$results ." instituciones coincidentes"; ?></span>
+                                        
                                     </div>
                         </div>
-                    </div>
+                    </div>   
                     <div class="bg-white shadow-md p-4 mt-4">
                         <p class="text-gray-700 text-sm">NOTA: La información aquí contenida corresponde a los datos de caracterización de la personería jurídica otorgada a la Institución de Educación Superior y a los programas académicos que oferta la Institución de Educación Superior a través del sistema SACES (Soporte al Aseguramiento de la Calidad de la Educación Superior).</p>
                     </div>
