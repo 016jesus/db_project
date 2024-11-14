@@ -5,7 +5,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 session_start();
-include_once "../connect.php"; 
+include_once "../../connect.php"; 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['username'];
@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $_SESSION['username'] = $user['nombre_completo'];
         $_SESSION['mensaje_exito'] = "Inicio de sesión exitoso.";
 
-        header("Location: modificaciones.php");
+        header("Location: ../crud/modificaciones.php");
         exit();
     } else {
         // Si las credenciales son incorrectas, mostrar un mensaje de error

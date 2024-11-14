@@ -25,7 +25,7 @@
                 </div>
                 <div>
                     <?php if (isset($_SESSION['username'])): ?>
-                        <a href="logout.php" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Cerrar sesión</a>
+                        <a href="/login/logout.php" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Cerrar sesión</a>
                     <?php else: ?>
                         <a href="login.php" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Iniciar Sesión</a>
                         <a href="registro.php" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 ml-2">Registrar</a>

@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -10,8 +11,8 @@
     <div class="container mx-auto">
         <?php 
         session_start();
-        include_once "header.php";
-        include_once "../atributtes.php"; 
+        include_once "../main/header.php";
+        include_once "../../atributtes.php"; 
         ?>
         <div class="mt-4">
             <div class="flex justify-between items-center p-4 bg-gray-800 text-white">
@@ -25,7 +26,14 @@
             </div>
 
             <div class="flex mt-4">
-                <div class="w-full bg-white shadow-md p-4"></div>
+                <div class="w-full bg-white shadow-md p-4">
+                    <form method="GET" action="directivos.php" class="mb-4">
+                        <div class="flex items-center">
+                            <input type="text" name="search" placeholder="Buscar por nombre" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200" value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
+                            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 ml-2">Buscar</button>
+                        </div>
+                    </form>
+                </div>
             </div>
 
             <div class="flex mt-4">
@@ -42,25 +50,45 @@
                         </thead>
                         <tbody>
                             <?php
-                            include_once "../connect.php";
+                            include_once "../../connect.php";
 
                             // Configuración de la paginación
                             $limit = 10; // Número de registros por página
                             $page = isset($_GET['page']) ? (int)$_GET['page'] : 1; // Página actual
                             $offset = ($page - 1) * $limit; // Offset para la consulta
 
+                            // Filtro de búsqueda
+                            $search = isset($_GET['search']) ? strtoupper(trim($_GET['search'])) : '';
+
                             // Consulta para contar el total de registros
                             $countQuery = "SELECT COUNT(*) as total FROM directivos";
-                            $countResult = $conn->query($countQuery);
-                            $total = $countResult->fetch(PDO::FETCH_ASSOC)['total'];
+                            if ($search) {
+                                $countQuery .= " WHERE nombre ILIKE :search";
+                            }
+                            $countStmt = $conn->prepare($countQuery);
+                            if ($search) {
+                                $countStmt->bindValue(':search', "%$search%");
+                            }
+                            $countStmt->execute();
+                            $total = $countStmt->fetch(PDO::FETCH_ASSOC)['total'];
                             $totalPages = ceil($total / $limit); // Total de páginas
 
                             // Consulta para obtener los registros de la página actual
-                            $query = "SELECT * FROM directivos LIMIT $limit OFFSET $offset";
-                            $result = $conn->query($query);
+                            $query = "SELECT * FROM directivos";
+                            if ($search) {
+                                $query .= " WHERE nombre LIKE :search";
+                            }
+                            $query .= " LIMIT :limit OFFSET :offset";
+                            $stmt = $conn->prepare($query);
+                            if ($search) {
+                                $stmt->bindValue(':search', "%$search%");
+                            }
+                            $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+                            $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+                            $stmt->execute();
                             $i = $offset + 1; // Para numerar los registros correctamente
 
-                            while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                                 echo "<tr>"
                                     . "<td class='py-2 px-4 border-b'>{$i}</td>"
                                     . "<td class='py-2 px-4 border-b'>{$row['cod_dir']}</td>"
@@ -86,10 +114,10 @@
                             <ul class="flex space-x-2">
                                 <?php if ($page > 1): ?>
                                     <li>
-                                        <a href="?page=1" class="bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400">Primera</a>
+                                        <a href="?page=1<?php echo $search ? '&search=' . urlencode($search) : ''; ?>" class="bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400">Primera</a>
                                     </li>
                                     <li>
-                                        <a href="?page=<?php echo $page - 1; ?>" class="bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400">Anterior</a>
+                                        <a href="?page=<?php echo $page - 1; ?><?php echo $search ? '&search=' . urlencode($search) : ''; ?>" class="bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400">Anterior</a>
                                     </li>
                                 <?php endif; ?>
 
@@ -100,16 +128,16 @@
 
                                 for ($i = $start; $i <= $end; $i++): ?>
                                     <li>
-                                        <a href="?page=<?php echo $i; ?>" class="bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400 <?php echo $i === $page ? 'bg-blue-500 text-white' : ''; ?>"><?php echo $i; ?></a>
+                                        <a href="?page=<?php echo $i; ?><?php echo $search ? '&search=' . urlencode($search) : ''; ?>" class="bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400 <?php echo $i === $page ? 'bg-blue-500 text-white' : ''; ?>"><?php echo $i; ?></a>
                                     </li>
                                 <?php endfor; ?>
 
                                 <?php if ($page < $totalPages): ?>
                                     <li>
-                                        <a href="?page=<?php echo $page + 1; ?>" class="bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400">Siguiente</a>
+                                        <a href="?page=<?php echo $page + 1; ?><?php echo $search ? '&search=' . urlencode($search) : ''; ?>" class="bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400">Siguiente</a>
                                     </li>
                                     <li>
-                                        <a href="?page=<?php echo $totalPages; ?>" class="bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400">Última</a>
+                                        <a href="?page=<?php echo $totalPages; ?><?php echo $search ? '&search=' . urlencode($search) : ''; ?>" class="bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400">Última</a>
                                     </li>
                                 <?php endif; ?>
                             </ul>

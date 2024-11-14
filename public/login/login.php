@@ -3,7 +3,7 @@
 session_start();
 
 
-include_once "../atributtes.php";
+include_once "../../connect.php";
 
 // Verifica si hay un mensaje de éxito de registro almacenado
 $mensaje_exito = isset($_SESSION['mensaje_exito']) ? $_SESSION['mensaje_exito'] : null;

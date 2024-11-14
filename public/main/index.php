@@ -11,11 +11,11 @@
         <?php 
         session_start();
         include_once "header.php";
-        include_once "../atributtes.php"; 
+        include_once "../../atributtes.php"; 
         ?>
 <script>
 
-        function validarNumero(input) {
+        function validarNumero(input) {add_directivo.php
             const valor = input.value;
             if (!/^[1-9]\d*$/.test(valor)) {
                 alert("Por favor, ingresa solo enteros positivos.");
@@ -36,8 +36,8 @@
             <div class="flex justify-between items-center p-4 bg-gray-800 text-white">
                 <h2 class="text-2xl">Consulta de Instituciones</h2>
                 <div>
-                    <a href="login.php" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Iniciar Sesión</a>
-                    <a href="registro.php" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 ml-2">Registrar</a>
+                    <a href="../login/login.php" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Iniciar Sesión</a>
+                    <a href="../login/registro.php" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 ml-2">Registrar</a>
                 </div>
             </div>
 
@@ -70,7 +70,7 @@
                         <select name="departamento" class="w-full border border-gray-300 p-2 rounded">
                             <option value="all">Todos</option>
                             <?php
-                            include_once "../connect.php";
+                           
                             $query = "SELECT * FROM departamentos";
                             $result = $conn->query($query);
                             while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
