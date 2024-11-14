@@ -5,14 +5,14 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 session_start();
-include_once "../connect.php"; // Asegúrate de que este archivo tiene la conexión a la base de datos
+include_once "../connect.php"; 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
     // Consulta para obtener el usuario por nombre de usuario
-    $query = "SELECT * FROM privado.usuarios WHERE nombre_completo = :username";
+    $query = "SELECT correo_usuario, contraseña, nombre_completo FROM privado.usuarios WHERE correo_usuario = :username";
     $stmt = $conn->prepare($query);
     $stmt->bindParam(':username', $username, PDO::PARAM_STR);
     $stmt->execute();

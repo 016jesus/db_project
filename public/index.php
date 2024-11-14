@@ -13,7 +13,25 @@
         include_once "header.php";
         include_once "../atributtes.php"; 
         ?>
+<script>
 
+        function validarNumero(input) {
+            const valor = input.value;
+            if (!/^[1-9]\d*$/.test(valor)) {
+                alert("Por favor, ingresa solo enteros positivos.");
+                input.value = ""; 
+            }
+        }
+
+        // Función para validar solo texto (sin números)
+        function validarTexto(input) {
+            const valor = input.value;
+            if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(valor)) {
+                alert("Por favor, ingresa solo letras.");
+                input.value = ""; 
+            }
+        }
+    </script>
         <div class="mt-4">
             <div class="flex justify-between items-center p-4 bg-gray-800 text-white">
                 <h2 class="text-2xl">Consulta de Instituciones</h2>
@@ -41,11 +59,11 @@
                     <br>
                     <div class="mb-4">
                         <label class="block text-gray-700">Nombre de la Institución</label>
-                        <input type="text" name="nombre_inst" class="w-full border border-gray-300 p-2 rounded">
+                        <input type="text" name="nombre_inst" oninput="validarTexto(this)" class="w-full border border-gray-300 p-2 rounded">
                     </div>
                     <div class="mb-4">
                         <label class="block text-gray-700">Código de la Institución</label>
-                        <input type="text" name="codigo_inst" class="w-full border border-gray-300 p-2 rounded">
+                        <input type="text" name="codigo_inst" oninput="validarNumero(this)" class="w-full border border-gray-300 p-2 rounded">
                     </div>
                     <div class="mb-4">
                         <label class="block text-gray-700">Departamento</label>
@@ -188,12 +206,14 @@
                         </thead>
                         <tbody>
                             <?php
+
                             $inicio = $_SESSION['inicio'] ?? 1;
                             $fin = $_SESSION['limit'] ?? 10;
                             $results = $_SESSION['results'] ?? 0;
                             $continue = $_SESSION['continue'];
-
+                            
                             if($continue){
+                                
                                 $salida = $_SESSION['salida'];
                                 if($salida == ""){
                                     echo "<tr><td colspan='6' class='py-2 px-4 border-b text-center'>No se encontraron resultados</td></tr>";
@@ -208,12 +228,23 @@
                                      $_SESSION['continue'] = false;
                                 }
                             } else {
-                                $query = $_SESSION['query'];
+
+                                $query = "SELECT * FROM inst_por_mun i
+                                                JOIN 
+                                                    cobertura c ON i.cod_inst = c.cod_inst
+                                                JOIN 
+                                                    municipios m ON c.cod_munic = m.cod_munic
+                                                JOIN 
+                                                    departamentos d ON m.cod_depto = d.cod_depto
+                                                JOIN 
+                                                    instituciones ins ON i.cod_ies_padre = ins.cod_ies_padre
+                                                JOIN
+                                                    caracter_academico ca ON ins.cod_acad = ca.cod_acad 
+                                                LIMIT 10";
                                 $result = $conn->query($query);
                                 $limit = 10;
                                 $fin = $limit;
 
-                                $results = $result->rowCount();
                                 for($i = $inicio; $i <= $limit; $i++){
                                     $row = $result->fetch(PDO:: FETCH_ASSOC);
                                     $row['seccional'] = $row['seccional'] == 1 ? 'Seccional' : 'Principal';

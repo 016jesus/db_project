@@ -1,8 +1,8 @@
 <?php 
-// Inicia sesión al comienzo del archivo
+
 session_start();
 
-// Incluye la configuración de la base de datos y la conexión
+
 include_once "../atributtes.php";
 
 // Verifica si hay un mensaje de éxito de registro almacenado
@@ -25,18 +25,18 @@ $mensaje_exito = isset($_SESSION['mensaje_exito']) ? $_SESSION['mensaje_exito'] 
         </div>
         
         <?php
-            // Mostrar mensaje de error si existe
+
             if (isset($_SESSION['mensaje_error'])) {
                 echo "<p class='text-red-500'>" . $_SESSION['mensaje_error'] . "</p>";
-                unset($_SESSION['mensaje_error']); // Eliminar el mensaje después de mostrarlo
+                unset($_SESSION['mensaje_error']); 
             }
             
-            // Mostrar mensaje de éxito si existe
+
             if ($mensaje_exito) {
                 echo "<div class='bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative' role='alert'>
                         <span class='block sm:inline'>{$mensaje_exito}</span>
                       </div>";
-                unset($_SESSION['mensaje_exito']); // Eliminar el mensaje de éxito después de mostrarlo
+                unset($_SESSION['mensaje_exito']); 
             }
         ?>
 

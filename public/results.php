@@ -86,6 +86,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submitted']) && $_POST
     
     $salida = array();
     $i = 1;
+
+    if($result == 0){
+        $salida = "<tr><td colspan='9' class='text-center'>No se encontraron resultados</td></tr>";
+        $_SESSION['salida'] = $salida;
+        header("Location: http://$host$uri/$extra?error=1");
+        exit;
+    }
+
+
     while (($row = $result->fetch(PDO::FETCH_ASSOC)) && $i <= $limit) {
         $row['seccional'] = $row['seccional'] == 1 ? 'Seccional' : 'Principal';
         $row['activa'] = $row['activa'] == 1 ? 'Activa' : 'Inactiva';

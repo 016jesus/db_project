@@ -21,7 +21,7 @@
             <div class="flex justify-between items-center p-4 bg-gray-800 text-white">
                 <div class="flex items-center">
                     <img src="../media/usuario.png" class="w-8 h-8 rounded-full mr-2">
-                    <h2 class="text-2xl"><?php echo isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : "Página de Usuario"; ?></h2>
+                    <h2 class="text-2xl"><?php echo isset($_SESSION['username']) ? "Hola, ".htmlspecialchars($_SESSION['username']) : "Página de Usuario"; ?></h2>
                 </div>
                 <div>
                     <?php if (isset($_SESSION['username'])): ?>
