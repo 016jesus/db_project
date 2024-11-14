@@ -1,3 +1,8 @@
+<?php
+// Iniciar la sesión al comienzo del archivo
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -12,6 +17,14 @@
         <div class="bg-gray-800 text-white p-4">
             <h2 class="text-2xl">Registro de Usuario</h2>
             <img src="../media/min.jpg" alt="Ministerio de Educación Logo" width="200" height="80">
+
+            <?php
+                // Mostrar mensaje de error si existe y luego eliminarlo
+                if (isset($_SESSION['mensaje_error2'])) {
+                    echo "<p class='text-red-500'>" . $_SESSION['mensaje_error2'] . "</p>";
+                    unset($_SESSION['mensaje_error2']); // Eliminar el mensaje después de mostrarlo
+                }
+            ?>
         </div>
 
         <div class="mt-4">
