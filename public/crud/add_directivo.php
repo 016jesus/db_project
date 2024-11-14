@@ -13,7 +13,7 @@
             <div class="flex justify-between items-center p-4 bg-gray-800 text-white">
                 <h2 class="text-2xl">Agregar Directivo</h2>
                 <div>
-                    <a href="index.php" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Inicio</a>
+                    <a href="../main/index.php" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Inicio</a>
                 </div>
                 <div class="mb-4">
                     <p><?php 
@@ -24,7 +24,12 @@
 
             <div class="flex mt-4">
                 <div class="w-full bg-white shadow-md p-4">
-                    <?php echo isset($_SESSION['mensaje'])? $_SESSION['mensaje']: "" ?>
+                    <?php 
+                    if (isset($_SESSION['mensaje'])) {
+                        echo $_SESSION['mensaje'];
+                        unset($_SESSION['mensaje']); // Eliminar el mensaje después de mostrarlo
+                    }
+                    ?>
                     <form id="addDirectivoForm" action="procesar_add_directivo.php" method="POST">
                         <div class="mb-4">
                             <label for="nombre" class="block text-gray-700">Nombre:</label>

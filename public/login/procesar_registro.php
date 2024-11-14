@@ -8,6 +8,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $contrasena = $_POST['password'];
     $nombre_completo = $_POST['username'];
 
+
+    if (!validateText($nombre_completo) || !validateEmail($correo_usuario) || !validatePassword($contrasena)) {
+        $_SESSION['mensaje_error2'] = "Datos de entrada no válidos.";
+        header("Location: registro.php");
+        exit();
+    }
+
     try {
         // Verificar si el correo electrónico ya existe
         $query = "SELECT * FROM privado.usuarios WHERE correo_usuario = :correo_usuario";
