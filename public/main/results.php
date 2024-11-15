@@ -1,7 +1,7 @@
 <?php
 
 
-include_once "../connect.php";
+include_once "../../connect.php";
 
 
 session_start();
@@ -26,7 +26,7 @@ $_SESSION['salida'] = array();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submitted']) && $_POST['submitted'] == 'true') {
 
-
+   
     // variable de control
     $_SESSION['continue'] = true;
 
@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submitted']) && $_POST
     $host  = $_SERVER['HTTP_HOST'];
     $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
     $extra = 'index.php';
-
+    
     // consulta sql
     $query = $_SESSION['query'] . " WHERE 1=1";
     
@@ -77,19 +77,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submitted']) && $_POST
 
 
 
-    
 
-    //echo $query;
+
     $result = $conn->query($query);
-
+    
     $limit = $limit == 'Todos' ? $result->rowCount(): $limit;
     
     $salida = array();
     $i = 1;
 
     if($result == 0){
-        $salida = "<tr><td colspan='9' class='text-center'>No se encontraron resultados</td></tr>";
-        $_SESSION['salida'] = $salida;
+        $_SESSION['salida']= "<tr><td colspan='9' class='text-center'>No se encontraron resultados</td></tr>";
         header("Location: http://$host$uri/$extra?error=1");
         exit;
     }
@@ -116,7 +114,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submitted']) && $_POST
     $_SESSION['limit'] = $limit;
     $_SESSION['results'] = $result->rowCount();
     $_SESSION['salida'] = $salida;
-    //echo $salida[1];
+    echo $salida[1];
     header("Location: http://$host$uri/$extra");
     exit;
 }
