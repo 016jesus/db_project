@@ -58,7 +58,7 @@
                             $offset = ($page - 1) * $limit; // Offset para la consulta
 
                             // Filtro de búsqueda
-                            $search = isset($_GET['search']) ? strtoupper(trim($_GET['search'])) : '';
+                            $search = isset($_GET['search']) ? trim($_GET['search']) : '';
 
                             // Consulta para contar el total de registros
                             $countQuery = "SELECT COUNT(*) as total FROM directivos";
@@ -74,9 +74,9 @@
                             $totalPages = ceil($total / $limit); // Total de páginas
 
                             // Consulta para obtener los registros de la página actual
-                            $query = "SELECT * FROM directivos";
+                            $query = "SELECT * FROM directivos WHERE 1=1 ";
                             if ($search) {
-                                $query .= " WHERE nombre LIKE :search";
+                                $query .= " AND nombre ILIKE :search";
                             }
                             $query .= " LIMIT :limit OFFSET :offset";
                             $stmt = $conn->prepare($query);

@@ -15,7 +15,7 @@
         ?>
 <script>
 
-        function validarNumero(input) {add_directivo.php
+        function validarNumero(input) {
             const valor = input.value;
             if (!/^[1-9]\d*$/.test(valor)) {
                 alert("Por favor, ingresa solo enteros positivos.");
