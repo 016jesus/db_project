@@ -18,7 +18,7 @@
             <div class="flex justify-between items-center p-4 bg-gray-800 text-white">
                 <h2 class="text-2xl">CRUD de Directivos</h2>
                 <div>
-                    <a href="index.php" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Inicio</a>
+                    <a href="../main/index.php" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Inicio</a>
                 </div>
                 <div class="mb-4">
                     <p><?php echo "Hola, ".$_SESSION['username']; ?></p>
@@ -94,9 +94,15 @@
                                     . "<td class='py-2 px-4 border-b'>{$row['cod_dir']}</td>"
                                     . "<td class='py-2 px-4 border-b'>{$row['nombre']}</td>"
                                     . "<td class='py-2 px-4 border-b'>{$row['apellido']}</td>"
-                                    . "<td class='py-2 px-4 border-b'>"
-                                    . "<a href='edit.php?cod_dir={$row['cod_dir']}' class='text-blue-500'><i class='fas fa-edit'></i> Editar</a> | "
-                                    . "<a href='delete.php?cod_dir={$row['cod_dir']}' class='text-red-500'><i class='fas fa-trash'></i> Eliminar</a>"
+                                    . "<td class='py-2 px-4 border-b text-center'>"
+                                    . "<div class='flex justify-center space-x-2'>"
+                                    . "    <a href='edit.php?cod_dir={$row['cod_dir']}' class='flex items-center bg-blue-500 text-white px-3 py-2 rounded-md shadow hover:bg-blue-600 transition duration-200'>"
+                                    . "        <i class='fas fa-edit mr-2'></i> Editar"
+                                    . "    </a>"
+                                    . "    <a href='delete.php?cod_dir={$row['cod_dir']}' class='flex items-center bg-red-500 text-white px-3 py-2 rounded-md shadow hover:bg-red-600 transition duration-200'>"
+                                    . "        <i class='fas fa-trash mr-2'></i> Eliminar"
+                                    . "    </a>"
+                                    . "</div>"
                                     . "</td>"
                                     . "</tr>";
                                 $i++;

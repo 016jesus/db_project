@@ -3,9 +3,6 @@
     include_once "header.php"; 
 ?>
 
-
-
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -39,19 +36,11 @@
                 <?php endif; ?>
             </div>
 
-            <!-- Botones con imágenes -->
-            <div class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <a href="directivos.php" class="bg-blue-200 flex flex-col items-center p-6 rounded-lg shadow transform transition-all duration-200 hover:scale-105 hover:bg-blue-300">
-                    <img src="../media/directivos.png" alt="Directivos" class="w-20 h-20 mb-2">
-                    <span class="text-lg font-semibold">Directivos</span>
-                </a>
-                <a href="inst_por_mun.php" class="bg-green-200 flex flex-col items-center p-6 rounded-lg shadow transform transition-all duration-200 hover:scale-105 hover:bg-green-300">
-                    <img src="../media/colombia.png" alt="Instituciones por Municipio" class="w-20 h-20 mb-2">
-                    <span class="text-lg font-semibold">Instituciones por Municipio</span>
-                </a>
-                <a href="instituciones.php" class="bg-indigo-200 flex flex-col items-center p-6 rounded-lg shadow transform transition-all duration-200 hover:scale-105 hover:bg-indigo-300">
-                    <img src="../media/instituciones.png" alt="Instituciones" class="w-20 h-20 mb-2">
-                    <span class="text-lg font-semibold">Instituciones</span>
+            <!-- Botón de Directivos centrado y agrandado -->
+            <div class="mt-4 flex justify-center">
+                <a href="directivos.php" class="bg-blue-200 flex flex-col items-center p-10 rounded-lg shadow-lg transform transition-all duration-200 hover:scale-105 hover:bg-blue-300">
+                    <img src="../media/directivos.png" alt="Directivos" class="w-32 h-32 mb-4">
+                    <span class="text-2xl font-semibold">Directivos</span>
                 </a>
             </div>
         </div>

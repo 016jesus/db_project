@@ -1,6 +1,7 @@
 <?php
 session_start();
 include_once "../../connect.php";
+include_once "../../validation.php";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Recibe los datos del formulario
@@ -50,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     } catch (PDOException $e) {
         $_SESSION['mensaje_error2'] = "Error en la base de datos: " . $e->getMessage();
-        header("Location: registro.php");
+        header("Location: login/registro.php");
         exit();
     }
 }
