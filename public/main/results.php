@@ -7,16 +7,20 @@ include_once "../../connect.php";
 session_start();
 $_SESSION['continue'] = false;
 $_SESSION['query'] = "SELECT * FROM inst_por_mun i
-                            JOIN 
-                                cobertura c ON i.cod_inst = c.cod_inst
-                            JOIN 
-                                municipios m ON c.cod_munic = m.cod_munic
-                            JOIN 
-                                departamentos d ON m.cod_depto = d.cod_depto
-                            JOIN 
-                                instituciones ins ON i.cod_ies_padre = ins.cod_ies_padre
-                            JOIN
-                                caracter_academico ca ON ins.cod_acad = ca.cod_acad";                            
+                                                JOIN 
+                                                    cobertura c ON i.cod_inst = c.cod_inst
+                                                JOIN 
+                                                    municipios m ON c.cod_munic = m.cod_munic
+                                                JOIN 
+                                                    departamentos d ON m.cod_depto = d.cod_depto
+                                                JOIN 
+                                                    instituciones ins ON i.cod_ies_padre = ins.cod_ies_padre
+                                                JOIN
+                                                    caracter_academico ca ON ins.cod_acad = ca.cod_acad 
+                                                JOIN 
+                                                    acto_administrativo aa ON i.cod_admin = aa.cod_admin
+                                                JOIN 
+                                                    norma_creacion nc ON i.cod_norma = nc.cod_norma";                            
 
 
 
@@ -39,8 +43,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submitted']) && $_POST
     $codigo_inst = $_POST['codigo_inst'] == '' ? null : $_POST['codigo_inst'];
     $departamento = $_POST['departamento'];
     $caracter_acad = $_POST['caracter_acad'];
-
-
+    $cod_admin = $_POST['cod_admin'];
+    $cod_norma = $_POST['cod_norma'];
+    
+    
+    
     $host  = $_SERVER['HTTP_HOST'];
     $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
     $extra = 'index.php';
@@ -72,7 +79,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submitted']) && $_POST
         $query .= " AND ca.cod_acad = $caracter_acad";
     }
 
-
+    if($cod_admin !== 'all'){
+        $query .= " AND i.cod_admin = $cod_admin";
+    }
+    if($cod_norma !== 'all'){
+        $query .= " AND i.cod_norma = $cod_norma";
+    }
 
 
 
@@ -98,24 +110,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submitted']) && $_POST
         $row['activa'] = $row['activa'] == 1 ? 'Activa' : 'Inactiva';
         $row['publica'] = $row['publica'] == 1 ? 'Publico' : 'Privado';
         $salida[$i]= "<tr>"
-            . "<td class='py-2 px-4 border-b'>{$i}</td>"
-            . "<td class='py-2 px-4 border-b'><a href='https://{$row['pagina_web']}' class='text-blue-500' target='_blank'>{$row['nomb_inst']}</a></td>"
-            . "<td class='py-2 px-4 border-b'>{$row['cod_inst']}</td>"
-            . "<td class='py-2 px-4 border-b'>{$row['cod_ies_padre']}</td>"
-            . "<td class='py-2 px-4 border-b'>{$row['publica']}</td>"
-            . "<td class='py-2 px-4 border-b'>{$row['nomb_acad']}</td>"
-            . "<td class='py-2 px-4 border-b'>{$row['activa']}</td>"
-            . "<td class='py-2 px-4 border-b'>{$row['seccional']}</td>"
-            . "<td class='py-2 px-4 border-b'>{$row['nomb_depto']}/{$row['nomb_munic']}</td>"
+        . "<td class='py-2 px-4 border-b'>{$i}</td>"
+        . "<td class='py-2 px-4 border-b'><a href='https://{$row['pagina_web']}' class='text-blue-500' target='_blank'>{$row['nomb_inst']}</a></td>"
+        . "<td class='py-2 px-4 border-b'>{$row['cod_inst']}</td>"
+        . "<td class='py-2 px-4 border-b'>{$row['cod_ies_padre']}</td>"
+        . "<td class='py-2 px-4 border-b'>{$row['publica']}</td>"
+        . "<td class='py-2 px-4 border-b'>{$row['nomb_acad']}</td>"
+        . "<td class='py-2 px-4 border-b'>{$row['activa']}</td>"
+        . "<td class='py-2 px-4 border-b'>{$row['seccional']}</td>"
+        . "<td class='py-2 px-4 border-b'>{$row['nomb_admin']}</td>"
+        . "<td class='py-2 px-4 border-b'>{$row['nomb_norma']}</td>"
+        . "<td class='py-2 px-4 border-b'>{$row['nomb_depto']}/{$row['nomb_munic']}</td>"
             . "</tr>";
             $i++;
     }
     $_SESSION['inicio'] = 1;
-    $_SESSION['limit'] = $limit;
     $_SESSION['results'] = $result->rowCount();
+    $_SESSION['limit'] = $result->rowCount() < 10 ? $result->rowCount() : $limit;
     $_SESSION['salida'] = $salida;
     echo $salida[1];
     header("Location: http://$host$uri/$extra");
     exit;
 }
-

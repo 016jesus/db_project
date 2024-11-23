@@ -19,6 +19,10 @@ $mensaje_exito = isset($_SESSION['mensaje_exito']) ? $_SESSION['mensaje_exito'] 
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="bg-gray-100">
+<?php 
+
+    include_once "../main/header.php";
+?>
     <div class="container mx-auto mt-10">
         <div class="bg-gray-800 text-white p-4">
             <h2 class="text-2xl">Inicio de Sesión</h2>

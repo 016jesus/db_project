@@ -13,10 +13,13 @@ session_start();
     <link rel="stylesheet" href="../media/style.css">
 </head>
 <body class="bg-gray-100">
+<?php 
+
+include_once "../main/header.php";
+?>
     <div class="container mx-auto mt-10">
         <div class="bg-gray-800 text-white p-4">
             <h2 class="text-2xl">Registro de Usuario</h2>
-            <img src="../media/min.jpg" alt="Ministerio de Educación Logo" width="200" height="80">
 
             <?php
                 // Mostrar mensaje de error si existe y luego eliminarlo

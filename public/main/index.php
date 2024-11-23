@@ -155,7 +155,20 @@
                                 ?>
                         </select>
                         </div>
-
+                        <div class="mt-2">
+                        <label class="block text-gray-700">Norma de creacion</label>
+                        <select name="cod_norma" class="w-full border border-gray-300 p-2 rounded">
+                            <option value="all">Todos</option>
+                        <?php
+                                $query = "select * from norma_creacion";
+                                $result = $conn->query($query);
+                                while($row = $result->fetch(PDO::FETCH_ASSOC)){
+                                    echo "<option value='{$row['cod_norma']}'>{$row['nomb_norma']}</option>";
+                                }
+                                
+                                ?>
+                        </select>
+                        </div>
 
                     </div>
                     <input type="hidden" name="submitted" value="true">
@@ -201,6 +214,8 @@
                                 <th class="py-2 px-4 border-b">Caracter Academico</th>
                                 <th class="py-2 px-4 border-b">Activa</th>
                                 <th class="py-2 px-4 border-b">Seccional</th>
+                                <th class="py-2 px-4 border-b">Acto Administrativo</th>
+                                <th class="py-2 px-4 border-b">Norma de creacion</th>
                                 <th class="py-2 px-4 border-b">Departamento/Municipio</th>
                             </tr>
                         </thead>
@@ -240,6 +255,10 @@
                                                     instituciones ins ON i.cod_ies_padre = ins.cod_ies_padre
                                                 JOIN
                                                     caracter_academico ca ON ins.cod_acad = ca.cod_acad 
+                                                JOIN 
+                                                    acto_administrativo aa ON i.cod_admin = aa.cod_admin
+                                                JOIN 
+                                                    norma_creacion nc ON i.cod_norma = nc.cod_norma
                                                 LIMIT 10";
                                 $result = $conn->query($query);
                                 $limit = 10;
@@ -260,6 +279,8 @@
                                         . "<td class='py-2 px-4 border-b'>{$row['nomb_acad']}</td>"
                                         . "<td class='py-2 px-4 border-b'>{$row['activa']}</td>"
                                         . "<td class='py-2 px-4 border-b'>{$row['seccional']}</td>"
+                                        . "<td class='py-2 px-4 border-b'>{$row['nomb_admin']}</td>"
+                                        . "<td class='py-2 px-4 border-b'>{$row['nomb_norma']}</td>"
                                         . "<td class='py-2 px-4 border-b'>{$row['nomb_depto']}/{$row['nomb_munic']}</td>"
                                         . "</tr>";
                                 }

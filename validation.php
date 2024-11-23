@@ -14,6 +14,5 @@ function validateNumber($number) {
 }
 
 function validatePassword($password) {
-    // Add your password validation logic here (e.g., minimum length, complexity)
-    return strlen($password) >= 8;
+    return strlen($password) >= 7;
 }
