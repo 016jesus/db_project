@@ -51,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     } catch (PDOException $e) {
         $_SESSION['mensaje_error2'] = "Error en la base de datos: " . $e->getMessage();
-        header("Location: registro.php");
+        header("Location: login/registro.php");
         exit();
     }
 }
