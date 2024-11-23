@@ -18,7 +18,7 @@
             <div class="flex justify-between items-center p-4 bg-gray-800 text-white">
                 <h2 class="text-2xl">CRUD de Directivos</h2>
                 <div>
-                    <a href="index.php" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Inicio</a>
+                    <a href="../main/index.php" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Inicio</a>
                 </div>
                 <div class="mb-4">
                     <p><?php echo "Hola, ".$_SESSION['username']; ?></p>
