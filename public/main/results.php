@@ -7,19 +7,19 @@ include_once "../../connect.php";
 session_start();
 $_SESSION['continue'] = false;
 $_SESSION['query'] = "SELECT * FROM inst_por_mun i
-                                                JOIN 
-                                                    cobertura c ON i.cod_inst = c.cod_inst
-                                                JOIN 
-                                                    municipios m ON c.cod_munic = m.cod_munic
-                                                JOIN 
-                                                    departamentos d ON m.cod_depto = d.cod_depto
-                                                JOIN 
+                                                LEFT JOIN 
                                                     instituciones ins ON i.cod_ies_padre = ins.cod_ies_padre
-                                                JOIN
+                                                LEFT JOIN 
+                                                    cobertura c ON i.cod_inst = c.cod_inst
+                                                LEFT JOIN 
+                                                    municipios m ON c.cod_munic = m.cod_munic
+                                                LEFT JOIN 
+                                                    departamentos d ON m.cod_depto = d.cod_depto
+                                                LEFT JOIN
                                                     caracter_academico ca ON ins.cod_acad = ca.cod_acad 
-                                                JOIN 
+                                                LEFT JOIN 
                                                     acto_administrativo aa ON i.cod_admin = aa.cod_admin
-                                                JOIN 
+                                                LEFT JOIN 
                                                     norma_creacion nc ON i.cod_norma = nc.cod_norma";                            
 
 

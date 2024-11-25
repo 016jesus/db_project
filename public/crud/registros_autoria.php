@@ -46,18 +46,20 @@ try {
                 <thead>
                     <tr>
                         <th class="py-2 px-4 border-b">ID</th>
-                        <th class="py-2 px-4 border-b">Nombre</th>
-                        <th class="py-2 px-4 border-b">Descripción</th>
+                        <th class="py-2 px-4 border-b">Operacion</th>
                         <th class="py-2 px-4 border-b">Fecha</th>
+                        <th class="py-2 px-4 border-b">Usuario</th>
+                        <th class="py-2 px-4 border-b">Registro</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach ($registros as $registro): ?>
                         <tr class="bg-white border-b hover:bg-gray-100">
                             <td class="py-2 px-4 border-b"><?php echo htmlspecialchars($registro['id']); ?></td>
-                            <td class="py-2 px-4 border-b"><?php echo htmlspecialchars($registro['nombre']); ?></td>
-                            <td class="py-2 px-4 border-b"><?php echo htmlspecialchars($registro['descripcion']); ?></td>
+                            <td class="py-2 px-4 border-b"><?php echo htmlspecialchars($registro['operacion']); ?></td>
                             <td class="py-2 px-4 border-b"><?php echo htmlspecialchars($registro['fecha']); ?></td>
+                            <td class="py-2 px-4 border-b"><?php echo htmlspecialchars($registro['usuario']); ?></td>
+                            <td class="py-2 px-4 border-b"><?php echo htmlspecialchars($registro['registro']); ?></td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>

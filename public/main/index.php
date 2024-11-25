@@ -186,7 +186,10 @@
 
 
 
-                <!-- ********************************************Sección de resultados************************************************8                                -->
+                <!-- **********************************
+                 
+                
+                **********Sección de resultados************************************************8                                -->
                 
 
 
@@ -225,7 +228,13 @@
                             $inicio = $_SESSION['inicio'] ?? 1;
                             $fin = $_SESSION['limit'] ?? 10;
                             $results = $_SESSION['results'] ?? 0;
-                            $continue = $_SESSION['continue'];
+                            if(isset($_SESSION['continue'])){
+                                $continue = $_SESSION['continue'];        
+                                unset($_SESSION['continue']);                   
+                            }else {
+                                $continue = false;
+                            }
+
                             
                             if($continue){
                                 
@@ -245,19 +254,19 @@
                             } else {
 
                                 $query = "SELECT * FROM inst_por_mun i
-                                                JOIN 
+                                                LEFT JOIN 
                                                     cobertura c ON i.cod_inst = c.cod_inst
-                                                JOIN 
+                                                LEFT JOIN 
                                                     municipios m ON c.cod_munic = m.cod_munic
-                                                JOIN 
+                                                LEFT JOIN 
                                                     departamentos d ON m.cod_depto = d.cod_depto
-                                                JOIN 
+                                                LEFT JOIN 
                                                     instituciones ins ON i.cod_ies_padre = ins.cod_ies_padre
-                                                JOIN
+                                                LEFT JOIN
                                                     caracter_academico ca ON ins.cod_acad = ca.cod_acad 
-                                                JOIN 
+                                                LEFT JOIN 
                                                     acto_administrativo aa ON i.cod_admin = aa.cod_admin
-                                                JOIN 
+                                                LEFT JOIN 
                                                     norma_creacion nc ON i.cod_norma = nc.cod_norma
                                                 LIMIT 10";
                                 $result = $conn->query($query);

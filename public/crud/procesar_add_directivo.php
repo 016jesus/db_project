@@ -40,7 +40,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
         $stmt->bindParam(':apellido', $apellido, PDO::PARAM_STR);
         $stmt->execute();
-        $cod_dir = $conn->lastInsertId();
+        $query = "SELECT cod_dir from directivos WHERE nombre = '$nombre' AND apellido = '$apellido'";
+        $result = $conn->query($query);
+        $cod_dir = $result->fetch(PDO::FETCH_ASSOC)['cod_dir'];
 
         // Asignar el cargo al directivo en la institución
         $query = "INSERT INTO rigen (cod_dir, cod_cargo, cod_ies_padre, cod_nombram) VALUES ($cod_dir, $cargo, $institucion, $cod_nombram)";
